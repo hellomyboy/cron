@@ -160,6 +160,11 @@ func (c *Cron) Start() {
 	go c.run()
 }
 
+// is current cron still running
+func (c *Cron) IsRunning() bool {
+    return c.running
+}
+
 // Run the scheduler.. this is private just due to the need to synchronize
 // access to the 'running' state variable.
 func (c *Cron) run() {
