@@ -3,6 +3,7 @@
 package cron
 
 import (
+    "fmt"
 	"sort"
 	"time"
 )
@@ -51,6 +52,16 @@ type Entry struct {
 
 	// Unique name to identify the Entry so as to be able to remove it later.
 	Name string
+}
+
+func (entry *Entry) ToString() string {
+    return fmt.Sprintf("Entry{name:%s, sche: nil, next:%s, prev:%s}", entry.Name, entry.Next, entry.Prev) 
+    /*
+    if sche, err := entry.Schedule.(SpecSchedule); err!=nil {
+        return fmt.Sprintf("Entry{name:%s, sche: nil, next:%s, prev:%s}", entry.Name, entry.Next, entry.Prev) 
+    } else {
+        return fmt.Sprintf("Entry{name:%s, sche: %s, next:%s, prev:%s}", entry.Name, sche.ToString(), entry.Next, entry.Prev) 
+    }*/
 }
 
 // byTime is a wrapper for sorting the entry array by time
@@ -248,3 +259,14 @@ func (c *Cron) entrySnapshot() []*Entry {
 	}
 	return entries
 }
+
+func (c *Cron) ToString() string {
+    entries := c.entrySnapshot() 
+    entryStr := ""
+    for _, e := range entries {
+        entryStr += e.ToString() + ","
+    }
+
+    return fmt.Sprintf("running: %s, entries:[%s]", c.running, entryStr)
+}
+

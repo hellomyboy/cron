@@ -1,6 +1,7 @@
 package cron
 
 import (
+    "fmt"
 	"time"
 )
 
@@ -51,6 +52,10 @@ const (
 	// Set the top bit if a star was included in the expression.
 	starBit = 1 << 63
 )
+
+func (s *SpecSchedule) ToString() string {
+    return fmt.Sprintf("month:%d, dom:%d, dow:%d, %d:%d:%d", s.Month, s.Dom, s.Dow, s.Hour, s.Minute, s.Second)
+}
 
 // Next returns the next time this schedule is activated, greater than the given
 // time.  If no time can be found to satisfy the schedule, return the zero time.
