@@ -255,6 +255,7 @@ func (c *Cron) entrySnapshot() []*Entry {
 			Next:     e.Next,
 			Prev:     e.Prev,
 			Job:      e.Job,
+            Name:     e.Name,
 		})
 	}
 	return entries
@@ -267,6 +268,6 @@ func (c *Cron) ToString() string {
         entryStr += e.ToString() + ","
     }
 
-    return fmt.Sprintf("running: %s, entries:[%s]", c.running, entryStr)
+    return fmt.Sprintf("cron running:%v, entries:[%s]", c.running, entryStr)
 }
 
