@@ -264,10 +264,15 @@ func (c *Cron) entrySnapshot() []*Entry {
 func (c *Cron) ToString() string {
     entries := c.entrySnapshot() 
     entryStr := ""
+    i := 0
     for _, e := range entries {
-        entryStr += e.ToString() + ","
+        if i > 0 {
+            entryStr += ","        
+        }
+        i += 1
+        entryStr += e.ToString()
     }
 
-    return fmt.Sprintf("cron running:%v, entries:[%s]", c.running, entryStr)
+    return fmt.Sprintf("cron_running:%v, entries:[%s]", c.running, entryStr)
 }
 
